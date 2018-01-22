@@ -97,9 +97,7 @@ var templatePath = path.join(__dirname, 'template.md');
 
 if (argv.template) {
   templatePath = path.resolve(process.cwd(), argv.template);
-  console.log(templatePath);
 }
-
 
 var template = hogan.compile(fs.readFileSync(templatePath).toString());
 
