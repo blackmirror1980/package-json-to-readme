@@ -1,4 +1,4 @@
-# package-json-to-readme [![Build Status](https://travis-ci.org/zeke/package-json-to-readme.svg?branch=master)](https://travis-ci.org/zeke/package-json-to-readme)
+# package-to-readme [![Build Status](https://travis-ci.org/blackmirror1980/package-to-readme.svg?branch=master)](https://travis-ci.org/blackmirror1980/package-to-readme)
 
 Generate a README.md from package.json contents. Works with node and io.js.
 
@@ -13,12 +13,12 @@ Every project worth its salt has a README that answers (at least) the following 
 - How do I test it?
 - What is the license?
 
-With npm modules, most of that info can be gleaned from properties in the `package.json` file: `name`, `description`, `scripts.test`, `preferGlobal`, etc. That's why `package-json-to-readme` exists. Use it to generate a decent boilerplate README, then iterate from there.
+With npm modules, most of that info can be gleaned from properties in the `package.json` file: `name`, `description`, `scripts.test`, `preferGlobal`, etc. That's why `package-to-readme` exists. Use it to generate a decent boilerplate README, then iterate from there.
 
 ## Installation
 
 ```sh
-npm i -g package-json-to-readme
+npm i -g package-to-readme
 ```
 
 ## Usage

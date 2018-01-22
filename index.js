@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict'
+'use strict';
 
 var hogan = require('hogan.js')
 var fs = require('fs')

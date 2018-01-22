@@ -1,13 +1,13 @@
 {
-  "name": "package-json-to-readme",
-  "version": "0.0.0-development",
+  "name": "package-to-readme",
+  "version": "0.0.1",
   "description": "Generate a README.md from package.json contents",
   "main": "index.js",
   "scripts": {
     "test": "mocha && standard",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "repository": "https://github.com/zeke/package-json-to-readme",
+  "repository": "https://github.com/blackmirror1980/package-to-readme",
   "keywords": [
     "package.json",
     "readme",
@@ -15,17 +15,17 @@
     "markdown",
     "documentation"
   ],
-  "author": "Zeke Sikelianos <zeke@sikelianos.com> (http://zeke.sikelianos.com/)",
+  "author": "Black Mirror",
   "license": "MIT",
   "dependencies": {
-    "github-url-to-object": "^1.6.0",
+    "github-url-to-object": "^4.0.2",
     "hogan.js": "^2.0.0",
     "strip-ansi": "^0.2.2",
     "sync-exec": "^0.5.0",
     "yargs": "^3.0.4"
   },
   "bin": {
-    "package-json-to-readme": "index.js",
+    "package-to-readme": "index.js",
     "readme": "index.js"
   },
   "preferGlobal": true,
