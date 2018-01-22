@@ -6,7 +6,7 @@ var fs = require('fs')
 var path = require('path')
 var util = require('util')
 var argv = require('yargs')
-  .usage('Usage: readme path/to/package.json')
+  .usage('Usage: pkg-2-readme path/to/package.json')
   .check(function (argv) {
     if (!argv._.length) throw new Error('A path to a valid package.json is required')
     return true

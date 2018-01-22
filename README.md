@@ -1,4 +1,4 @@
-# package-to-readme [![Build Status](https://travis-ci.org/blackmirror1980/package-to-readme.svg?branch=master)](https://travis-ci.org/blackmirror1980/package-to-readme)
+# pkg-2-readme [![Build Status](https://travis-ci.org/blackmirror1980/pkg-2-readme.svg?branch=master)](https://travis-ci.org/blackmirror1980/pkg-2-readme)
 
 Generate a README.md from package.json contents. Works with node and io.js.
 
@@ -13,31 +13,31 @@ Every project worth its salt has a README that answers (at least) the following 
 - How do I test it?
 - What is the license?
 
-With npm modules, most of that info can be gleaned from properties in the `package.json` file: `name`, `description`, `scripts.test`, `preferGlobal`, etc. That's why `package-to-readme` exists. Use it to generate a decent boilerplate README, then iterate from there.
+With npm modules, most of that info can be gleaned from properties in the `package.json` file: `name`, `description`, `scripts.test`, `preferGlobal`, etc. That's why `pkg-2-readme` exists. Use it to generate a decent boilerplate README, then iterate from there.
 
 ## Installation
 
 ```sh
-npm i -g package-to-readme
+npm i -g pkg-2-readme
 ```
 
 ## Usage
 
 ```sh
 # Write to stdout
-readme package.json
+pkg-2-readme package.json
 
 # Pipe output into a new file
-readme package.json > README.md
+pkg-2-readme package.json > README.md
 
 # Add a Travis badge
-readme package.json --travis
+pkg-2-readme package.json --travis
 
 # Run tests and add their output
-readme package.json --tests
+pkg-2-readme package.json --tests
 
 # Do it all
-readme package.json --tests --travis > README.md
+pkg-2-readme package.json --tests --travis > README.md
 
 # If your package has an example.sh or example.js file, it will be used to
 # generate a usage section like this one.

@@ -1,5 +1,5 @@
 {
-  "name": "package-to-readme",
+  "name": "pkg-2-readme",
   "version": "0.0.1",
   "description": "Generate a README.md from package.json contents",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "test": "mocha && standard",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "repository": "https://github.com/blackmirror1980/package-to-readme",
+  "repository": "https://github.com/blackmirror1980/pkg-2-readme",
   "keywords": [
     "package.json",
     "readme",
@@ -25,8 +25,7 @@
     "yargs": "^3.0.4"
   },
   "bin": {
-    "package-to-readme": "index.js",
-    "readme": "index.js"
+    "pkg-2-readme": "index.js"
   },
   "preferGlobal": true,
   "devDependencies": {
