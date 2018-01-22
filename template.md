@@ -1,6 +1,6 @@
 # {{name}}{{#travis_url}} [![Build Status]({{travis_url}}.png?branch=master)]({{travis_url}}){{/travis_url}}
 
-[![NPM](https://nodei.co/npm/{{name}}.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/{{name}}/)
+{{#nodeico_badge}}[![NPM](https://nodei.co/npm/{{name}}.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/{{name}}/){{/nodeico_badge}}
 
 ## Version
 v{{version}}

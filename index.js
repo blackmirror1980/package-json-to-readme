@@ -16,16 +16,14 @@ var argv = require('yargs')
     alias: 'travis',
     description: 'display a travis badge'
   })
-  .option('t', {
-    alias: 'test',
-    description: 'include test output in readme'
+  .option('b', {
+    alias: 'badge',
+    description: 'add nodei.co badge'
   })
-  .alias('t', 'tests')
-  .option('template', {
+  .option('t', {
     alias: 'template',
     description: 'use specified custom template'
   })
-  .alias('tmp', 'template')
   .help('help')
   .alias('h', 'help')
   .argv;
@@ -55,11 +53,7 @@ if (argv.travis) {
 }
 
 // Run tests and fetch output
-if (argv.tests || argv.test) {
-  pkg.testOutput = stripAnsi(execSync('npm test').stdout)
-    .replace(/\r/g, '') // remove weird newlines
-    .replace(/\n+/g, '\n'); // remove excess newlines
-}
+pkg.nodeico_badge = !!argv.badge;
 
 // Look for example.js or example.sh in package.json directory
 var extensions = ['js', 'sh'];
@@ -102,7 +96,8 @@ if (pkg.devDependencies) {
 var templatePath = path.join(__dirname, 'template.md');
 
 if (argv.template) {
-  templatePath = argv.template;
+  templatePath = path.resolve(process.cwd(), argv.template);
+  console.log(templatePath);
 }
 
 
