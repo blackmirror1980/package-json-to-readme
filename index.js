@@ -5,6 +5,10 @@ var hogan = require('hogan.js');
 var fs = require('fs');
 var path = require('path');
 var util = require('util');
+var _ = require('lodash');
+var gh = require('github-url-to-object');
+var execSync = require('sync-exec');
+var stripAnsi = require('strip-ansi');
 
 var argv = require('yargs')
   .usage('Usage: pkg-2-readme path/to/package.json > path/to/README.md [-r] [-t=path/to/template.md]')
@@ -12,26 +16,51 @@ var argv = require('yargs')
     if (!argv._.length) throw new Error('A path to a valid package.json is required')
     return true
   })
-  .option('r', {
-    alias: 'travis',
-    description: 'display a travis badge'
-  })
-  .option('b', {
-    alias: 'badge',
-    description: 'add nodei.co badge'
-  })
   .option('t', {
     alias: 'template',
     description: 'use specified custom template'
+  })
+  .option('b', {
+    alias: 'badges',
+    description: 'disables badges'
+  })
+  .option('bn', {
+    alias: 'nodeico',
+    description: 'disables nodeico badge'
+  })
+  .option('bg', {
+    alias: 'github',
+    description: 'disables github badges'
+  })
+  .option('bgs', {
+    alias: 'github_stars',
+    description: 'disables github stars badge'
+  })
+  .option('bgf', {
+    alias: 'github_forks',
+    description: 'disables github forks badge'
+  })
+  .option('bgi', {
+    alias: 'github_issues',
+    description: 'disables github issues badge'
+  })
+  .option('bgl', {
+    alias: 'github_license',
+    description: 'disables github license badge'
+  })
+  .option('bt', {
+    alias: 'travis',
+    description: 'disables travis badge'
+  })
+  .option('bc', {
+    alias: 'coverage',
+    description: 'disables coverage badge'
   })
   .help('help')
   .alias('h', 'help')
   .argv;
 
-var gh = require('github-url-to-object');
-var execSync = require('sync-exec');
-var stripAnsi = require('strip-ansi');
-
+  // read package.json into pkg object
 var pkgPath = path.resolve(process.cwd(), argv._[0]);
 
 try {
@@ -41,19 +70,61 @@ try {
   process.exit();
 }
 
-pkg.private = pkg.private || pkg.license === 'private' || false;
+// read git info from repository specified in package.json
+var gitInfo = null;
 
-if (argv.travis) {
-  if (pkg.repository && pkg.repository.url && gh(pkg.repository.url)) {
-    pkg.travis_url = gh(pkg.repository.url).travis_url;
-  } else {
-    console.error('`repository.url` must be a GitHub repository URL for Travis to work');
-    process.exit();
-  }
+if(!!pkg.repository) {
+  gitInfo = gh(pkg.repository.url || pkg.repository);
+  // {
+  //   user: 'monkey',
+  //   repo: 'business',
+  //   branch: 'master',
+  //   tarball_url: 'https://api.github.com/repos/monkey/business/tarball/master',
+  //   clone_url: 'https://github.com/monkey/business',
+  //   https_url: 'https://github.com/monkey/business',
+  //   travis_url: 'https://travis-ci.org/monkey/business',
+  //   api_url: 'https://api.github.com/repos/monkey/business'
+  //   zip_url: 'https://github.com/monkey/business/archive/master.zip'
+  // }
 }
 
-// Run tests and fetch output
-pkg.nodeico_badge = !!argv.badge;
+if(!gitInfo) {
+  console.error('`repository.url` or `repository` must be a correct GitHub repository URL');
+  process.exit();
+}
+
+// prepare templatePath && templateData
+var templatePath = path.join(__dirname, 'template.md');
+
+if (argv.template) {
+  templatePath = path.resolve(process.cwd(), argv.template);
+}
+
+var template = hogan.compile(fs.readFileSync(templatePath).toString());
+
+var templateData = _.clone(pkg);
+
+// author
+templateData.author_name = templateData.author;
+templateData.author = gitInfo.user;
+
+// badges
+templateData.badges = !argv.badges;
+
+if(!!templateData.badges) {
+  templateData.add_nodeico = !argv.nodeico;
+  templateData.add_github_badges = !argv.github;
+
+  if(!!templateData.add_github_badges) {
+    templateData.add_github_stars = !argv.github_stars;
+    templateData.add_github_forks = !argv.github_forks;
+    templateData.add_github_issues = !argv.github_issues;
+    templateData.add_github_license = !argv.github_license;
+  }
+
+  templateData.add_travis = !argv.travis;
+  templateData.add_coverage = !argv.coverage;
+}
 
 // Look for example.js or example.sh in package.json directory
 var extensions = ['js', 'sh'];
@@ -62,16 +133,16 @@ extensions.forEach(function (language) {
   var exampleFile = path.resolve(path.dirname(argv._[0])) + '/example.' + language;
 
   if (fs.existsSync(exampleFile)) {
-    pkg.usage = {
+    templateData.usage = {
       language: language,
       content: fs.readFileSync(exampleFile).toString()
     };
 
     // replace require('./') statement with the package name
     if (language === 'js') {
-      pkg.usage.content = pkg.usage.content.replace(
+      templateData.usage.content = templateData.usage.content.replace(
         /require\(['"]?\.\/['"]?\)/,
-        util.format('require("%s")', pkg.name)
+        util.format('require("%s")', templateData.name)
       )
     };
   }
@@ -85,20 +156,12 @@ var getDeps = function (deps) {
   })
 }
 
-if (pkg.dependencies) {
-  pkg.depDetails = getDeps(pkg.dependencies);
+if (templateData.dependencies) {
+  templateData.depDetails = getDeps(templateData.dependencies);
 }
 
-if (pkg.devDependencies) {
-  pkg.devDepDetails = getDeps(pkg.devDependencies)
+if (templateData.devDependencies) {
+  templateData.devDepDetails = getDeps(templateData.devDependencies)
 }
 
-var templatePath = path.join(__dirname, 'template.md');
-
-if (argv.template) {
-  templatePath = path.resolve(process.cwd(), argv.template);
-}
-
-var template = hogan.compile(fs.readFileSync(templatePath).toString());
-
-process.stdout.write(template.render(pkg));
+process.stdout.write(template.render(templateData));

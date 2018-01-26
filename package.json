@@ -17,22 +17,23 @@
   ],
   "author": "Black Mirror",
   "license": "MIT",
-  "dependencies": {
-    "github-url-to-object": "^4.0.2",
-    "hogan.js": "^2.0.0",
-    "strip-ansi": "^0.2.2",
-    "sync-exec": "^0.5.0",
-    "yargs": "^3.0.4"
-  },
   "bin": {
     "pkg-2-readme": "index.js"
   },
   "preferGlobal": true,
+  "dependencies": {
+    "github-url-to-object": "^4.0.2",
+    "hogan.js": "^3.0.2",
+    "strip-ansi": "^4.0.0",
+    "sync-exec": "^0.6.2",
+    "yargs": "^11.0.0",
+    "lodash": "^4.17.4"
+  },
   "devDependencies": {
-    "mocha": "^2.1.0",
-    "nixt": "^0.3.0",
-    "standard": "^8.6.0",
-    "semantic-release": "^8.2.0"
+    "mocha": "^5.0.0",
+    "nixt": "^0.5.0",
+    "semantic-release": "^12.2.5",
+    "standard": "^10.0.3"
   },
   "standard": {
     "env": {

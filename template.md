@@ -12,7 +12,7 @@ v{{version}}
 
 {{#add_nodeico}}[![NPM](https://nodei.co/npm/{{name}}.png)](https://nodei.co/npm/{{name}}/){{/add_nodeico}}
 
-{{#add_github_stars}}[![GitHub stars](https://img.shields.io/github/stars/{{author}}/{{name}}.svg?style=plastic)](https://github.com/{{author}}/{{name}}/stargazers){{/add_github_stars}} {{#add_github_forks}}[![GitHub forks](https://img.shields.io/github/forks/{{author}}/{{name}}.svg?style=plastic)](https://github.com/{{author}}/{{name}}/network){{/add_github_forks}} {{#add_github_issues}}[![GitHub issues](https://img.shields.io/github/issues/{{author}}/{{name}}.svg?style=plastic)](https://github.com/{{author}}/{{name}}/issues){{/add_github_issues}} {{#add_github_license}}[![GitHub license](https://img.shields.io/github/license/{{author}}/{{name}}.svg?style=plastic)](https://github.com/{{author}}/{{name}}/blob/master/LICENSE{{/add_github_license}}) {{#add_travis}}[![Build Status](https://travis-ci.org/{{author}}/{{name}}.svg?branch=master)](https://travis-ci.org/{{author}}/{{name}}){{/add_travis}} {{#add_coverage}}[![Coverage Status](https://coveralls.io/repos/github/{{author}}/{{name}}/badge.svg?branch=master)](https://coveralls.io/github/{{author}}/{{name}}?branch=master){{/add_coverage}}
+{{#add_github_badges}}{{#add_github_stars}}[![GitHub stars](https://img.shields.io/github/stars/{{author}}/{{name}}.svg?style=plastic)](https://github.com/{{author}}/{{name}}/stargazers){{/add_github_stars}} {{#add_github_forks}}[![GitHub forks](https://img.shields.io/github/forks/{{author}}/{{name}}.svg?style=plastic)](https://github.com/{{author}}/{{name}}/network){{/add_github_forks}} {{#add_github_issues}}[![GitHub issues](https://img.shields.io/github/issues/{{author}}/{{name}}.svg?style=plastic)](https://github.com/{{author}}/{{name}}/issues){{/add_github_issues}} {{#add_github_license}}[![GitHub license](https://img.shields.io/github/license/{{author}}/{{name}}.svg?style=plastic)](https://github.com/{{author}}/{{name}}/blob/master/LICENSE){{/add_github_license}}{{/add_github_badges}} {{#add_travis}}[![Build Status](https://travis-ci.org/{{author}}/{{name}}.svg?branch=master)](https://travis-ci.org/{{author}}/{{name}}){{/add_travis}} {{#add_coverage}}[![Coverage Status](https://coveralls.io/repos/github/{{author}}/{{name}}/badge.svg?branch=master)](https://coveralls.io/github/{{author}}/{{name}}?branch=master){{/add_coverage}}
 {{/badges}}
 {{/author}}
 
@@ -25,7 +25,6 @@ v{{version}}
 ## Description
 {{description}}
 
-{{^private}}
 ## Installation
 
 This is a [Node.js](https://nodejs.org/) module available through the 
@@ -43,7 +42,6 @@ npm install {{name}} --global
 npm install {{name}} --save
 {{/preferGlobal}}
 ```
-{{/private}}
 {{#usage}}
 
 ## Usage
@@ -52,20 +50,6 @@ npm install {{name}} --save
 {{{content}}}
 ```
 {{/usage}}
-{{#scripts.test}}
-
-## Tests
-
-```sh
-npm install
-npm test
-```
-{{/scripts.test}}
-{{#testOutput}}
-```
-{{{testOutput}}}
-```
-{{/testOutput}}
 
 ## Dependencies
 
@@ -84,4 +68,19 @@ None
 {{^devDepDetails}}
 None
 {{/devDepDetails}}
+
+{{#scripts.test}}
+## Tests
+
+```sh
+npm install
+npm test
+```
+{{/scripts.test}}
+
+{{#testOutput}}
+```
+{{{testOutput}}}
+```
+{{/testOutput}}
 
