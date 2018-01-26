@@ -1,9 +1,26 @@
-# {{name}}{{#travis_url}} [![Build Status]({{travis_url}}.png?branch=master)]({{travis_url}}){{/travis_url}}
+# {{name}}
 
-{{#nodeico_badge}}[![NPM](https://nodei.co/npm/{{name}}.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/{{name}}/){{/nodeico_badge}}
+{{#author}}
+## Author
+{{author_name}}
 
 ## Version
 v{{version}}
+
+{{#badges}}
+## Badges
+
+{{#add_nodeico}}[![NPM](https://nodei.co/npm/{{name}}.png)](https://nodei.co/npm/{{name}}/){{/add_nodeico}}
+
+{{#add_github_stars}}[![GitHub stars](https://img.shields.io/github/stars/{{author}}/{{name}}.svg?style=plastic)](https://github.com/{{author}}/{{name}}/stargazers){{/add_github_stars}} {{#add_github_forks}}[![GitHub forks](https://img.shields.io/github/forks/{{author}}/{{name}}.svg?style=plastic)](https://github.com/{{author}}/{{name}}/network){{/add_github_forks}} {{#add_github_issues}}[![GitHub issues](https://img.shields.io/github/issues/{{author}}/{{name}}.svg?style=plastic)](https://github.com/{{author}}/{{name}}/issues){{/add_github_issues}} {{#add_github_license}}[![GitHub license](https://img.shields.io/github/license/{{author}}/{{name}}.svg?style=plastic)](https://github.com/{{author}}/{{name}}/blob/master/LICENSE{{/add_github_license}}) {{#add_travis}}[![Build Status](https://travis-ci.org/{{author}}/{{name}}.svg?branch=master)](https://travis-ci.org/{{author}}/{{name}}){{/add_travis}} {{#add_coverage}}[![Coverage Status](https://coveralls.io/repos/github/{{author}}/{{name}}/badge.svg?branch=master)](https://coveralls.io/github/{{author}}/{{name}}?branch=master){{/add_coverage}}
+{{/badges}}
+{{/author}}
+
+{{#license}}
+## License
+
+{{license}}
+{{/license}}
 
 ## Description
 {{description}}
@@ -68,8 +85,3 @@ None
 None
 {{/devDepDetails}}
 
-{{#license}}
-## License
-
-{{license}}
-{{/license}}
